@@ -38,6 +38,10 @@ const DonationInformation: React.FC<DonationInfo> = ({
 
 	const handleEditFormClose = () => {
 		setOpenEditForm(false);
+		setSupporterName(supporter);
+		setCampaignName(campaign);
+		setDesig(designation);
+		setFreq(frequency);
 	};
 
 	const handleEditFormSubmit = (updatedInfo: any) => {
