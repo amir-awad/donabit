@@ -4,7 +4,7 @@ import { Box, Divider, Grid } from '@mui/material';
 
 import DonationContent from '../components/DonationContent';
 import DonationInformation from '../components/DonationInfo/DonationInformation';
-import PaymentAndFees from '../components/PaymentAndFees';
+import PaymentAndFees from '../components/PaymentAndFees/PaymentAndFees';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 
