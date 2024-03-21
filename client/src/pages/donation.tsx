@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Box, Divider, Grid } from '@mui/material';
 
 import DonationContent from '../components/DonationContent';
-import DonationInformation from '../components/DonationInformation';
+import DonationInformation from '../components/DonationInfo/DonationInformation';
 import PaymentAndFees from '../components/PaymentAndFees';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';

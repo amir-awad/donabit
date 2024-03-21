@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Controller } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 
@@ -5,6 +6,7 @@ interface CustomizedControllerProps {
 	name: string;
 	label: string;
 	control: any;
+	// eslint-disable-next-line no-undef
 	children: (field: any) => JSX.Element;
 }
 
