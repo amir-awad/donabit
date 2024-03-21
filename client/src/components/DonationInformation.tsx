@@ -27,6 +27,11 @@ const DonationInformation: React.FC<DonationInfo> = ({
 }) => {
 	const [openEditForm, setOpenEditForm] = useState(false);
 
+	const [supporterName, setSupporterName] = useState(supporter);
+	const [campaignName, setCampaignName] = useState(campaign);
+	const [desig, setDesig] = useState(designation);
+	const [freq, setFreq] = useState(frequency);
+
 	const handleEditClick = () => {
 		setOpenEditForm(true);
 	};
@@ -182,10 +187,14 @@ const DonationInformation: React.FC<DonationInfo> = ({
 			</Grid>
 
 			<EditForm
-				supporter={supporter}
-				campaign={campaign}
-				designation={designation}
-				frequency={frequency}
+				supporterName={supporterName}
+				campaignName={campaignName}
+				designation={desig}
+				frequency={freq}
+				setSupporterName={setSupporterName}
+				setCampaignName={setCampaignName}
+				setDesignation={setDesig}
+				setFrequency={setFreq}
 				onSubmit={handleEditFormSubmit}
 				onClose={handleEditFormClose}
 				open={openEditForm}

@@ -11,7 +11,7 @@ import Topbar from '../components/Topbar';
 const donationInfo = {
 	id: 'DMLKSD',
 	supporter: 'Mohamed Elsayed',
-	campaign: 'My awesome campaign',
+	campaign: 'My awesome campaign #6',
 	designation: '___',
 	donationDate: 'Feb 14, 2023, 9:54 PM',
 	successDate: 'Feb 14, 2023, 9:54 PM',

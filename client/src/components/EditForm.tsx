@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -6,7 +6,6 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogContent,
-	DialogContentText,
 	DialogActions,
 	TextField,
 	MenuItem,
@@ -18,18 +17,22 @@ import {
 } from '@mui/material';
 
 interface EditFormProperties {
-	supporter: string;
-	campaign: string;
+	supporterName: string;
+	campaignName: string;
 	designation: string;
 	frequency: string;
+	setSupporterName: (name: string) => void;
+	setCampaignName: (name: string) => void;
+	setDesignation: (desig: string) => void;
+	setFrequency: (freq: string) => void;
 	onSubmit: (updatedInfo: EditFormValues) => void;
 	onClose: () => void;
 	open?: boolean;
 }
 
 interface EditFormValues {
-	supporter: string;
-	campaign: string;
+	supporterName: string;
+	campaignName: string;
 	designation: string;
 	frequency: string;
 }
@@ -44,10 +47,14 @@ const donationInfoSchema = z.object({
 });
 
 const EditForm: React.FC<EditFormProperties> = ({
-	supporter,
-	campaign,
+	supporterName,
+	campaignName,
 	designation,
 	frequency,
+	setSupporterName,
+	setCampaignName,
+	setDesignation,
+	setFrequency,
 	onSubmit,
 	onClose,
 	open,
@@ -56,25 +63,25 @@ const EditForm: React.FC<EditFormProperties> = ({
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(donationInfoSchema),
-		defaultValues: { supporter, campaign, designation, frequency },
+		defaultValues: { supporterName, campaignName, designation, frequency },
 	});
 
 	return (
 		<Dialog open={open || false} onClose={onClose}>
-			<DialogTitle>Edit Donation Information</DialogTitle>
+			<DialogTitle sx={{ ml: 2, fontWeight: 'bold' }}>
+				Donation Information
+			</DialogTitle>
 			<DialogContent>
-				<DialogContentText>
-					Please edit the donation information below.
-				</DialogContentText>
-				<Grid container spacing={2}>
+				<Grid container spacing={2} sx={{ p: 2, maxWidth: 400 }}>
 					<Grid item xs={12}>
 						<TextField
-							value={supporter}
+							value={supporterName}
 							label='Supporter Name'
-							error={!!errors.supporter}
-							helperText={errors.supporter?.message}
+							error={!!errors.supporterName}
+							helperText={errors.supporterName?.message}
 							fullWidth
 							required
+							onChange={(e) => setSupporterName(e.target.value)}
 						/>
 					</Grid>
 					<Grid item xs={12}>
@@ -82,29 +89,50 @@ const EditForm: React.FC<EditFormProperties> = ({
 							<InputLabel id='campaign-select-label'>Campaign</InputLabel>
 							<Select
 								labelId='campaign-select-label'
-								value={campaign}
-								error={!!errors.campaign}
+								value={campaignName}
+								error={!!errors.campaignName}
 								required
+								onChange={(e) => setCampaignName(e.target.value)}
 							>
-								{['']
-									.concat(/*  Add your campaign options here */)
-									.map((option) => (
-										<MenuItem key={option} value={option}>
-											{option}
-										</MenuItem>
-									))}
+								{[
+									'My awesome campaign #1',
+									'My awesome campaign #2',
+									'My awesome campaign #3',
+									'My awesome campaign #4',
+									'My awesome campaign #5',
+									'My awesome campaign #6',
+								].map((option) => (
+									<MenuItem key={option} value={option}>
+										{option}
+									</MenuItem>
+								))}
 							</Select>
 						</FormControl>
 					</Grid>
 					<Grid item xs={12}>
-						<TextField
-							value={designation}
-							label='Designation'
-							error={!!errors.designation}
-							helperText={errors.designation?.message}
-							fullWidth
-							required
-						/>
+						<FormControl fullWidth>
+							<InputLabel id='designation-select-label'>Designation</InputLabel>
+							<Select
+								labelId='designation-select-label'
+								value={designation}
+								error={!!errors.designation}
+								required
+								onChange={(e) => setDesignation(e.target.value)}
+							>
+								{[
+									'General Fund',
+									'Building Fund',
+									'Education Fund',
+									'Health Fund',
+									'Food Fund',
+									'____',
+								].map((option) => (
+									<MenuItem key={option} value={option}>
+										{option}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 					</Grid>
 					<Grid item xs={12}>
 						<FormControl fullWidth>
@@ -114,6 +142,7 @@ const EditForm: React.FC<EditFormProperties> = ({
 								value={frequency}
 								error={!!errors.frequency}
 								required
+								onChange={(e) => setFrequency(e.target.value)}
 							>
 								{donationFrequencyOptions.map((option) => (
 									<MenuItem key={option} value={option}>
@@ -130,7 +159,7 @@ const EditForm: React.FC<EditFormProperties> = ({
 				<Button
 					variant='contained'
 					onClick={() =>
-						onSubmit({ supporter, campaign, designation, frequency })
+						onSubmit({ supporterName, campaignName, designation, frequency })
 					}
 				>
 					Save
