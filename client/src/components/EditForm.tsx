@@ -10,14 +10,16 @@ import {
 	TextField,
 	MenuItem,
 	Select,
-	InputLabel,
 	FormControl,
 	Button,
 	Grid,
 	Typography,
 } from '@mui/material';
 
-import { HelpOutlineOutlined as HelpIcon } from '@mui/icons-material';
+import {
+	HelpOutlineOutlined as HelpIcon,
+	ClearOutlined as ClearIcon,
+} from '@mui/icons-material';
 
 interface EditFormProperties {
 	supporterName: string;
@@ -71,8 +73,26 @@ const EditForm: React.FC<EditFormProperties> = ({
 
 	return (
 		<Dialog open={open || false} onClose={onClose}>
-			<DialogTitle sx={{ ml: 2, fontWeight: 'bold' }}>
-				Donation Information
+			<DialogTitle>
+				<Grid container spacing={1}>
+					<Grid item>
+						<Typography
+							variant='h6'
+							sx={{ fontWeight: 'bold', ml: 2, fontSize: 20 }}
+						>
+							Donation Information
+						</Typography>
+					</Grid>
+					<Grid item sx={{ ml: 'auto' }}>
+						<Button
+							onClick={onClose}
+							startIcon={
+								<ClearIcon sx={{ color: 'grey', width: 20, height: 20 }} />
+							}
+							sx={{ color: 'black', fontWeight: 'bold' }}
+						/>
+					</Grid>
+				</Grid>
 			</DialogTitle>
 			<DialogContent>
 				<Grid container spacing={2} sx={{ p: 2, maxWidth: 400 }}>
@@ -191,12 +211,12 @@ const EditForm: React.FC<EditFormProperties> = ({
 				</Grid>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose}>Cancel</Button>
 				<Button
 					variant='contained'
 					onClick={() =>
 						onSubmit({ supporterName, campaignName, designation, frequency })
 					}
+					sx={{ m: 3, width: 100 }}
 				>
 					Save
 				</Button>
