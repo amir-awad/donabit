@@ -134,7 +134,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 										</Typography>
 									</Grid>
 									<Grid item>
-										<HelpIcon fontSize='small' />
+										<HelpIcon fontSize='small' sx={{ color: 'grey' }} />
 									</Grid>
 								</Grid>
 							</Grid>

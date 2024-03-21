@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -14,7 +14,10 @@ import {
 	FormControl,
 	Button,
 	Grid,
+	Typography,
 } from '@mui/material';
+
+import { HelpOutlineOutlined as HelpIcon } from '@mui/icons-material';
 
 interface EditFormProperties {
 	supporterName: string;
@@ -74,9 +77,23 @@ const EditForm: React.FC<EditFormProperties> = ({
 			<DialogContent>
 				<Grid container spacing={2} sx={{ p: 2, maxWidth: 400 }}>
 					<Grid item xs={12}>
+						<Grid container spacing={1}>
+							<Grid item>
+								<Typography
+									variant='body2'
+									noWrap
+									sx={{ fontWeight: 'bold', fontSize: 16, mb: 1 }}
+								>
+									Supporter Name
+								</Typography>
+							</Grid>
+							<Grid item>
+								<HelpIcon fontSize='small' sx={{ color: 'grey' }} />
+							</Grid>
+						</Grid>
+
 						<TextField
 							value={supporterName}
-							label='Supporter Name'
 							error={!!errors.supporterName}
 							helperText={errors.supporterName?.message}
 							fullWidth
@@ -86,7 +103,13 @@ const EditForm: React.FC<EditFormProperties> = ({
 					</Grid>
 					<Grid item xs={12}>
 						<FormControl fullWidth>
-							<InputLabel id='campaign-select-label'>Campaign</InputLabel>
+							<Typography
+								variant='body2'
+								noWrap
+								sx={{ fontWeight: 'bold', fontSize: 16, mb: 1 }}
+							>
+								Campaign
+							</Typography>
 							<Select
 								labelId='campaign-select-label'
 								value={campaignName}
@@ -111,7 +134,14 @@ const EditForm: React.FC<EditFormProperties> = ({
 					</Grid>
 					<Grid item xs={12}>
 						<FormControl fullWidth>
-							<InputLabel id='designation-select-label'>Designation</InputLabel>
+							<Typography
+								variant='body2'
+								noWrap
+								sx={{ fontWeight: 'bold', fontSize: 16, mb: 1 }}
+							>
+								Designation
+							</Typography>
+
 							<Select
 								labelId='designation-select-label'
 								value={designation}
@@ -136,7 +166,13 @@ const EditForm: React.FC<EditFormProperties> = ({
 					</Grid>
 					<Grid item xs={12}>
 						<FormControl fullWidth>
-							<InputLabel id='frequency-select-label'>Frequency</InputLabel>
+							<Typography
+								variant='body2'
+								noWrap
+								sx={{ fontWeight: 'bold', fontSize: 16, mb: 1 }}
+							>
+								Frequency
+							</Typography>
 							<Select
 								labelId='frequency-select-label'
 								value={frequency}

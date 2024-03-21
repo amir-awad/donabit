@@ -143,7 +143,7 @@ const DonationInformation: React.FC<DonationInfo> = ({
 									</Typography>
 								</Grid>
 								<Grid item>
-									<HelpIcon fontSize='small' />
+									<HelpIcon fontSize='small' sx={{ color: 'grey' }} />
 								</Grid>
 							</Grid>
 						</Grid>
@@ -164,7 +164,7 @@ const DonationInformation: React.FC<DonationInfo> = ({
 									</Typography>
 								</Grid>
 								<Grid item>
-									<HelpIcon fontSize='small' />
+									<HelpIcon fontSize='small' sx={{ color: 'grey' }} />
 								</Grid>
 							</Grid>
 						</Grid>
