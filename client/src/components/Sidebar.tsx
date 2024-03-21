@@ -40,7 +40,7 @@ export default function Sidebar({ drawerWidth }: SidebarProps) {
 					'Emails',
 					'Transactions',
 					'Double the Donation',
-				].map((text, index) => (
+				].map((text) => (
 					<ListItem key={text} disablePadding>
 						<ListItemButton
 							sx={{
