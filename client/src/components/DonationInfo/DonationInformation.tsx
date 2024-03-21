@@ -74,7 +74,7 @@ const DonationInformation: React.FC<DonationInfo> = ({
 			<Grid item xs={12} sx={{ mb: 1 }}>
 				<Divider />
 			</Grid>
-			<Grid container spacing={1}>
+			<Grid container spacing={2}>
 				<InfoRow label='Donation ID' value={donationId} />
 				<InfoRow label='Supporter' value={supporter} />
 				<InfoRow label='Campaign' value={campaign} />

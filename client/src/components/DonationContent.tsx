@@ -7,6 +7,7 @@ import {
 	TableHead,
 	TableBody,
 	Grid,
+	Box,
 } from '@mui/material';
 
 import CustomizedCell from './CustomizedCell';
@@ -38,12 +39,24 @@ export default function DonationContent() {
 					>
 						<Grid container spacing={1}>
 							<Grid item>
-								<Image
-									src={mastercardIcon}
-									alt='Mastercard'
-									width={30}
-									height={30}
-								/>
+								<Box
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										width: 30,
+										height: 24,
+										backgroundColor: 'black',
+										borderRadius: '20%',
+									}}
+								>
+									<Image
+										src={mastercardIcon}
+										alt='Mastercard'
+										width={24}
+										height={24}
+									/>
+								</Box>
 							</Grid>
 							<Grid item>****7956</Grid>
 						</Grid>

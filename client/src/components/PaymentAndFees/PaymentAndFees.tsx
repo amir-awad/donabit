@@ -65,7 +65,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 				<Divider />
 			</Grid>
 			<Grid item xs={6}>
-				<Grid container spacing={1}>
+				<Grid container spacing={2}>
 					<PaymentLeftRow title='Donation Amount' value={donationAmount} />
 					<PaymentLeftRow
 						title='Before Fees Covered'
@@ -84,7 +84,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 				</Grid>
 			</Grid>
 			<Grid item xs={6}>
-				<Grid container spacing={1}>
+				<Grid container spacing={2}>
 					<PaymentRightRow title='Payment Processor' value={paymentProcessor} />
 					<PaymentRightRow
 						title='Payment ID'
@@ -102,8 +102,9 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 									alignItems: 'center',
 									justifyContent: 'center',
 									width: 24,
-									height: 24,
+									height: 20,
 									backgroundColor: 'black',
+									borderRadius: '20%',
 								}}
 							>
 								<Image
