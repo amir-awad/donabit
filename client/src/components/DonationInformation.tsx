@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EditForm from './EditForm';
 import { Grid, Typography, Divider, Button } from '@mui/material';
 import {
@@ -25,7 +25,7 @@ const DonationInformation: React.FC<DonationInfo> = ({
 	successDate,
 	frequency,
 }) => {
-	const [openEditForm, setOpenEditForm] = React.useState(false);
+	const [openEditForm, setOpenEditForm] = useState(false);
 
 	const handleEditClick = () => {
 		setOpenEditForm(true);
