@@ -1,7 +1,7 @@
 import express from 'express';
 import supabaseService from '../services/supabaseService';
 import { STATUS_CODES } from '../common-utils/constants';
-
+import { isValidUuid } from '../common-utils/validation';
 const getAllDonations: express.RequestHandler = async (req, res) => {
   try {
     const { data, error } = await supabaseService.getSupabase().from('donation').select('*');
@@ -36,6 +36,9 @@ const createDonation: express.RequestHandler = async (req, res) => {
 const getDonationInformation: express.RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidUuid(id)) {
+      return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ error: 'Invalid donation ID' });
+    }
     const { data, error } = await supabaseService.getSupabase().from('donation').select('*').eq('donation_id', id)
       .select(`last_update, supporter_name, campaign
         , payment: donation_id (payment_method)`);
@@ -54,6 +57,9 @@ const getDonationInformation: express.RequestHandler = async (req, res) => {
 const getDonationDetails: express.RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidUuid(id)) {
+      return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ error: 'Invalid donation ID' });
+    }
     const { data, error } = await supabaseService
       .getSupabase()
       .from('donation')
@@ -74,6 +80,9 @@ const getDonationDetails: express.RequestHandler = async (req, res) => {
 const updateDonation: express.RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidUuid(id)) {
+      return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ error: 'Invalid donation ID' });
+    }
     const { data, error } = await supabaseService
       .getSupabase()
       .from('donation')
@@ -97,6 +106,9 @@ const updateDonation: express.RequestHandler = async (req, res) => {
 const deleteDonation: express.RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidUuid(id)) {
+      return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ error: 'Invalid donation ID' });
+    }
     const { data, error } = await supabaseService.getSupabase().from('donation').delete().eq('donation_id', id);
     if (error) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to delete donation', message: error.message });

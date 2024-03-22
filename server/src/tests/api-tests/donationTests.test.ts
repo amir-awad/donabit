@@ -20,3 +20,20 @@ describe('POST /donations', () => {
     expect(response.status).toBe(STATUS_CODES.BAD_REQUEST);
   });
 });
+
+describe('GET /donations', () => {
+  it('should return 200 when fetching all donations', async () => {
+    const response = await request(app).get('/donations');
+    expect(response.status).toBe(STATUS_CODES.OK);
+  });
+
+  it('should return all donations', async () => {
+    const donations = await request(app).get('/donations');
+    const oldLength = donations.body.length;
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const newDonations = await request(app).get('/donations');
+    const newLength = newDonations.body.length;
+    expect(newLength).toBe(oldLength + 1);
+  });
+});
