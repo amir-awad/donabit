@@ -34,7 +34,7 @@ const paymentAndFeesInfo = {
 
 const drawerWidth = 240;
 
-export default function Donation() {
+export default function Home() {
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<Topbar drawerWidth={drawerWidth} />
