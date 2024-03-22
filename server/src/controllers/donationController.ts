@@ -18,13 +18,12 @@ const getAllDonations: express.RequestHandler = async (req, res) => {
 
 const createDonation: express.RequestHandler = async (req, res) => {
   try {
-    const donation_date = new Date();
     const { data, error } = await supabaseService.getSupabase().from('donation').insert({
       supporter_name: req.body.supporterName,
       campaign: req.body.campaignName,
       designation: req.body.designation,
-      donation_date: donation_date,
-      last_update: donation_date,
+      donation_date: new Date(), 
+      last_update: new Date(),
       frequency: req.body.frequency,
     });
     if (error) {
@@ -83,7 +82,6 @@ const getDonationDetails: express.RequestHandler = async (req, res) => {
 const updateDonation: express.RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const last_update = new Date();
     const { data, error } = await supabaseService
       .getSupabase()
       .from('donation')
@@ -92,7 +90,7 @@ const updateDonation: express.RequestHandler = async (req, res) => {
         campaign: req.body.campaignName,
         designation: req.body.designation,
         frequency: req.body.frequency,
-        last_update: last_update,
+        last_update: new Date(),
       })
       .eq('donation_id', id);
     if (error) {
