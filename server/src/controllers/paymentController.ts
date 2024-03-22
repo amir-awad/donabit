@@ -13,9 +13,6 @@ const getPaymentDetails: express.RequestHandler = async (req, res) => {
     if (error) {
       return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to fetch data', message: error.message });
     }
-    if (data.length === 0) {
-      return res.status(STATUS_CODES.NOT_FOUND).json({ error: 'Payment not found' });
-    }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {
     res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ error: 'Failed to fetch data' });
