@@ -83,3 +83,36 @@ describe('GET /donations/:id/details', () => {
     expect(details.status).toBe(STATUS_CODES.NOT_FOUND);
   });
 });
+
+describe('PUT /donations/:id', () => {
+  it('should return 200 when updating donation', async () => {
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const response = await request(app).get('/donations');
+    const lastDonation = response.body[response.body.length - 1];
+    lastDonation.supporter_name = 'New name';
+    const updatedDonation = await request(app).put(`/donations/${lastDonation.donation_id}`).send(lastDonation);
+    expect(updatedDonation.status).toBe(STATUS_CODES.OK);
+  });
+
+  it('should return 400 when updating donation with invalid data', async () => {
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const response = await request(app).get('/donations');
+    const lastDonation = response.body[response.body.length - 1];
+    lastDonation.campaign = 'Updated campaign';
+    donation.campaignName = 'New campaign';
+    const updatedDonation = await request(app).put(`/donations/${lastDonation.donation_id}`).send(donation);
+    expect(updatedDonation.status).toBe(STATUS_CODES.BAD_REQUEST);
+  });
+
+  it('should return 500 when updating donation with invalid ID', async () => {
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const response = await request(app).get('/donations');
+    const lastDonation = response.body[response.body.length - 1];
+    lastDonation.donation_id = 'invalid-id';
+    const updatedDonation = await request(app).put(`/donations/${lastDonation.donation_id}`).send(lastDonation);
+    expect(updatedDonation.status).toBe(STATUS_CODES.INTERNAL_SERVER_ERROR);
+  });
+});
