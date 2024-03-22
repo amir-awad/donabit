@@ -1,14 +1,12 @@
 import { faker } from '@faker-js/faker';
 
-const paymentMethods = ['Mastercard', 'Visa'];
+const paymentMethods = ['Master Card', 'Visa'];
 
 const randomIndex = (length: number) => Math.floor(Math.random() * length);
 
 const generatePayment = () => {
   return {
-    donation_id: faker.string.uuid(),
     paymentAmount: parseFloat(faker.finance.amount({ min: 100, max: 1000, dec: 2 })),
-    paymentDate: faker.date.recent().toISOString(),
     platformFee: parseFloat(faker.finance.amount({ min: 100, max: 1000, dec: 2 })),
     paymentProcessingFee: parseFloat(faker.finance.amount({ min: 100, max: 10000, dec: 2 })),
     payoutAmount: parseFloat(faker.finance.amount({ min: 100, max: 1000, dec: 2 })),
