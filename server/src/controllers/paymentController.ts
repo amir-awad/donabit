@@ -11,9 +11,7 @@ const getPaymentDetails: express.RequestHandler = async (req, res) => {
       .select('*')
       .eq('donation_id', donationId);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to fetch data', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to fetch data', message: error.message });
     }
     if (data.length === 0) {
       return res.status(STATUS_CODES.NOT_FOUND).json({ error: 'Payment not found' });
@@ -42,9 +40,7 @@ const createPayment: express.RequestHandler = async (req, res) => {
     });
 
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to create payment', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to create payment', message: error.message });
     }
     res.status(STATUS_CODES.CREATED).json(data);
   } catch (error) {
@@ -73,9 +69,7 @@ const updatePayment: express.RequestHandler = async (req, res) => {
       .eq('payment_id', paymentId);
 
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to update payment', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to update payment', message: error.message });
     }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {
@@ -88,9 +82,7 @@ const deletePayment: express.RequestHandler = async (req, res) => {
     const { paymentId } = req.params;
     const { data, error } = await supabaseService.getSupabase().from('payment').delete().eq('payment_id', paymentId);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to delete payment', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to delete payment', message: error.message });
     }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {

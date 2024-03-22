@@ -4,13 +4,5 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
-  },
-  "overrides": [
-    {
-      "files": ["tests/**/*"],
-      "env": {
-        "jest": true
-      }
-    }
-  ]
+  }
 }
