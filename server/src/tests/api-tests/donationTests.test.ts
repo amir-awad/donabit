@@ -116,3 +116,28 @@ describe('PUT /donations/:id', () => {
     expect(updatedDonation.status).toBe(STATUS_CODES.INTERNAL_SERVER_ERROR);
   });
 });
+
+describe('DELETE /donations/:id', () => {
+  it('should return 200 when deleting donation', async () => {
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const response = await request(app).get('/donations');
+    const oldLength = response.body.length;
+    const lastDonation = response.body[response.body.length - 1];
+    const deletedDonation = await request(app).delete(`/donations/${lastDonation.donation_id}`);
+    const newResponse = await request(app).get('/donations');
+    const newLength = newResponse.body.length;
+    expect(deletedDonation.status).toBe(STATUS_CODES.OK);
+    expect(newLength).toBe(oldLength - 1);
+  });
+
+  it('should return 500 when deleting donation with invalid ID', async () => {
+    const donation = generateDonation();
+    await request(app).post('/donations').send(donation);
+    const response = await request(app).get('/donations');
+    const lastDonation = response.body[response.body.length - 1];
+    lastDonation.donation_id = 'invalid-id';
+    const deletedDonation = await request(app).delete(`/donations/${lastDonation.donation_id}`);
+    expect(deletedDonation.status).toBe(STATUS_CODES.INTERNAL_SERVER_ERROR);
+  });
+});
