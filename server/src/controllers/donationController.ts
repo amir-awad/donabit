@@ -6,9 +6,7 @@ const getAllDonations: express.RequestHandler = async (req, res) => {
   try {
     const { data, error } = await supabaseService.getSupabase().from('donation').select('*');
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to fetch data', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to fetch data', message: error.message });
     }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {
@@ -18,7 +16,6 @@ const getAllDonations: express.RequestHandler = async (req, res) => {
 
 const createDonation: express.RequestHandler = async (req, res) => {
   try {
-    console.log('req.body ============ ', req.body);
     const { data, error } = await supabaseService.getSupabase().from('donation').insert({
       supporter_name: req.body.supporterName,
       campaign: req.body.campaignName,
@@ -28,9 +25,7 @@ const createDonation: express.RequestHandler = async (req, res) => {
       frequency: req.body.frequency,
     });
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to create donation', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to create donation', message: error.message });
     }
     res.status(STATUS_CODES.CREATED).json(data);
   } catch (error) {
@@ -45,9 +40,7 @@ const getDonationInformation: express.RequestHandler = async (req, res) => {
       .select(`last_update, supporter_name, campaign
         , payment: donation_id (payment_method)`);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to fetch data', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to fetch data', message: error.message });
     }
     if (data.length === 0) {
       return res.status(STATUS_CODES.NOT_FOUND).json({ error: 'Donation not found' });
@@ -67,9 +60,7 @@ const getDonationDetails: express.RequestHandler = async (req, res) => {
       .select(`donation_id, supporter_name, campaign, designation, frequency, success_date, donation_date`)
       .eq('donation_id', id);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to fetch data', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to fetch data', message: error.message });
     }
     if (data.length === 0) {
       return res.status(STATUS_CODES.NOT_FOUND).json({ error: 'Donation not found' });
@@ -95,9 +86,7 @@ const updateDonation: express.RequestHandler = async (req, res) => {
       })
       .eq('donation_id', id);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to update donation', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to update donation', message: error.message });
     }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {
@@ -110,9 +99,7 @@ const deleteDonation: express.RequestHandler = async (req, res) => {
     const { id } = req.params;
     const { data, error } = await supabaseService.getSupabase().from('donation').delete().eq('donation_id', id);
     if (error) {
-      return res
-        .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Failed to delete donation', message: error.message });
+      return res.status(STATUS_CODES.BAD_REQUEST).json({ error: 'Failed to delete donation', message: error.message });
     }
     res.status(STATUS_CODES.OK).json(data);
   } catch (error) {
