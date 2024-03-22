@@ -18,11 +18,12 @@ const getAllDonations: express.RequestHandler = async (req, res) => {
 
 const createDonation: express.RequestHandler = async (req, res) => {
   try {
+    console.log('req.body ============ ', req.body);
     const { data, error } = await supabaseService.getSupabase().from('donation').insert({
       supporter_name: req.body.supporterName,
       campaign: req.body.campaignName,
       designation: req.body.designation,
-      donation_date: new Date(), 
+      donation_date: new Date(),
       last_update: new Date(),
       frequency: req.body.frequency,
     });
