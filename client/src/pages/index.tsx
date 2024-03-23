@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Box, Divider, Grid } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import DonationContent from '../components/DonationContent';
 import DonationInformation from '../components/DonationInfo/DonationInformation';
@@ -37,8 +38,11 @@ const drawerWidth = 240;
 export default function Home() {
 	return (
 		<Box sx={{ display: 'flex' }}>
-			<Topbar drawerWidth={drawerWidth} />
-			<Sidebar drawerWidth={drawerWidth} />
+			<CssBaseline />
+			<Box sx={{ display: 'flex' }}>
+				<Topbar drawerWidth={drawerWidth} />
+				<Sidebar drawerWidth={drawerWidth} />
+			</Box>
 			<Divider />
 			<Box
 				component='main'

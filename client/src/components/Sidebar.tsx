@@ -6,6 +6,7 @@ import {
 	ListItem,
 	ListItemButton,
 	ListItemText,
+	Box,
 } from '@mui/material';
 
 interface SidebarProps {
@@ -13,20 +14,14 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ drawerWidth }: SidebarProps) {
-	return (
-		<Drawer
-			sx={{
-				width: drawerWidth,
-				flexShrink: 0,
-				'& .MuiDrawer-paper': {
-					width: drawerWidth,
-					boxSizing: 'border-box',
-					border: 'none',
-				},
-			}}
-			variant='permanent'
-			anchor='left'
-		>
+	const [mobileOpen, setMobileOpen] = React.useState(false);
+
+	const handleDrawerClose = () => {
+		setMobileOpen(false);
+	};
+
+	const drawer = (
+		<>
 			<Toolbar />
 			<List>
 				{[
@@ -56,6 +51,47 @@ export default function Sidebar({ drawerWidth }: SidebarProps) {
 					</ListItem>
 				))}
 			</List>
-		</Drawer>
+		</>
+	);
+
+	return (
+		<Box
+			component='nav'
+			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			aria-label='mailbox folders'
+		>
+			<Drawer
+				variant='temporary'
+				open={mobileOpen}
+				onClose={handleDrawerClose}
+				ModalProps={{
+					keepMounted: true,
+				}}
+				sx={{
+					display: { xs: 'block', sm: 'none' },
+					'& .MuiDrawer-paper': {
+						boxSizing: 'border-box',
+						width: drawerWidth,
+						border: 'none',
+					},
+				}}
+			>
+				{drawer}
+			</Drawer>
+			<Drawer
+				variant='permanent'
+				sx={{
+					display: { xs: 'none', sm: 'block' },
+					'& .MuiDrawer-paper': {
+						boxSizing: 'border-box',
+						width: drawerWidth,
+						border: 'none',
+					},
+				}}
+				open
+			>
+				{drawer}
+			</Drawer>
+		</Box>
 	);
 }

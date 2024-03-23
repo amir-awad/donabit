@@ -22,8 +22,8 @@ export default function Topbar({ drawerWidth }: TopbarProps) {
 			position='fixed'
 			sx={{
 				bgcolor: 'background.default',
-				width: `calc(100% - ${drawerWidth}px)`,
-				ml: `${drawerWidth}px`,
+				width: { sm: `calc(100% - ${drawerWidth}px)` },
+				ml: { sm: `${drawerWidth}px` },
 				boxShadow: 'none',
 				pr: 3,
 			}}
