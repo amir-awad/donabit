@@ -5,13 +5,19 @@ interface PaymentLeftRowProps {
 	title: string;
 	value: string;
 	icon?: React.ReactNode;
+	isMobile: boolean;
 }
 
-const PaymentLeftRow = ({ title, value, icon }: PaymentLeftRowProps) => {
+const PaymentLeftRow = ({
+	title,
+	value,
+	icon,
+	isMobile,
+}: PaymentLeftRowProps) => {
 	return (
 		<Grid item xs={12}>
 			<Grid container spacing={1}>
-				<Grid item xs={title === 'Payment ID' ? 3 : 6}>
+				<Grid item xs={isMobile && title === 'Payment ID' ? 3 : 6}>
 					<Typography variant='body2' noWrap>
 						{title}
 					</Typography>

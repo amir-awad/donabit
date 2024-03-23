@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Grid, Typography, Divider, Button, Box } from '@mui/material';
+import {
+	Grid,
+	Typography,
+	Divider,
+	Button,
+	Box,
+	useTheme,
+	useMediaQuery,
+} from '@mui/material';
 import {
 	ModeEditOutlineOutlined as ModeEditIcon,
 	HelpOutlineOutlined as HelpIcon,
@@ -37,6 +45,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 	feeCovered,
 	effectiveFee,
 }) => {
+	const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
 	return (
 		<Grid container spacing={1}>
 			<Grid container spacing={1} alignItems='center'>
@@ -63,29 +72,52 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<Grid container spacing={2}>
-					<PaymentRow title='Donation Amount' value={donationAmount} />
-					<PaymentRow title='Before Fees Covered' value={beforeFeesCovered} />
-					<PaymentRow title='Payment Fee' value={paymentFee} />
+					<PaymentRow
+						title='Donation Amount'
+						value={donationAmount}
+						isMobile={isMobile}
+					/>
+					<PaymentRow
+						title='Before Fees Covered'
+						value={beforeFeesCovered}
+						isMobile={isMobile}
+					/>
+					<PaymentRow
+						title='Payment Fee'
+						value={paymentFee}
+						isMobile={isMobile}
+					/>
 					<PaymentRow
 						title='Payment Processing Fee'
 						value={paymentProcessingFee}
+						isMobile={isMobile}
 					/>
 					<PaymentRow
 						title='Payout Amount'
 						value={payoutAmount}
 						icon={<HelpIcon fontSize='small' sx={{ color: 'grey' }} />}
+						isMobile={isMobile}
 					/>
 				</Grid>
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<Grid container spacing={2}>
-					<PaymentRow title='Payment Processor' value={paymentProcessor} />
+					<PaymentRow
+						title='Payment Processor'
+						value={paymentProcessor}
+						isMobile={isMobile}
+					/>
 					<PaymentRow
 						title='Payment ID'
 						value={paymentId}
 						icon={<OpenInNewIcon />}
+						isMobile={isMobile}
 					/>
-					<PaymentRow title='Payment Method' value={paymentMethod} />
+					<PaymentRow
+						title='Payment Method'
+						value={paymentMethod}
+						isMobile={isMobile}
+					/>
 					<PaymentRow
 						title='Credit Card'
 						value={creditCard}
@@ -109,6 +141,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 								/>
 							</Box>
 						}
+						isMobile={isMobile}
 					/>
 					<PaymentRow
 						title='Fee Covered'
@@ -128,6 +161,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 								<DoneIcon fontSize='small' sx={{ color: 'white' }} />
 							</Box>
 						}
+						isMobile={isMobile}
 					/>
 					<PaymentRow title='Effective Fee' value={effectiveFee} />
 				</Grid>
