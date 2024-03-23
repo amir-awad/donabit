@@ -23,6 +23,7 @@ jobs:
         run: npm test
         working-directory: server
 env:
+  PORT: ${{ secrets.PORT }}
   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
   SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
   SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
