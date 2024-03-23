@@ -8,5 +8,6 @@
     "skipLibCheck": true,
     "types": ["@types/node", "@types/jest"]
   },
+  "compileOnSave": true,
   "include": ["src/**/*.ts", "src/common-utils"]
 }
