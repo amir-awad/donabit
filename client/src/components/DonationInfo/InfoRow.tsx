@@ -11,7 +11,7 @@ interface InfoRowProps {
 const InfoRow = ({ label, value, isMobile }: InfoRowProps) => (
 	<Grid item xs={12}>
 		<Grid container spacing={1}>
-			<Grid item xs={isMobile ? 6 : 3}>
+			<Grid item xs={isMobile ? 5 : 3}>
 				<Typography variant='body2' noWrap>
 					{label}
 				</Typography>
