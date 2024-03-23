@@ -19,11 +19,7 @@ jobs:
           SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
 
       - name: Print environment variables
-        run: echo "$PORT"
         run: echo "$SUPABASE_URL"
-        run: echo "$SUPABASE_KEY"
-        run: echo "$SUPABASE_EMAIL"
-        run: echo "$SUPABASE_PASSWORD"
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
