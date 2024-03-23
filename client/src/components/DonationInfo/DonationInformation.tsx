@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import EditForm from './EditForm';
-import { Grid, Typography, Divider, Button } from '@mui/material';
+import {
+	Grid,
+	Typography,
+	Divider,
+	Button,
+	useTheme,
+	useMediaQuery,
+} from '@mui/material';
 import { ModeEditOutlineOutlined as ModeEditIcon } from '@mui/icons-material';
 
 import InfoRow from './InfoRow';
@@ -49,6 +56,8 @@ const DonationInformation: React.FC<DonationInfo> = ({
 		setOpenEditForm(false);
 	};
 
+	const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+
 	return (
 		<Grid>
 			<Grid container spacing={1} alignItems='center' sx={{ mb: 1 }}>
@@ -75,13 +84,17 @@ const DonationInformation: React.FC<DonationInfo> = ({
 				<Divider />
 			</Grid>
 			<Grid container spacing={2}>
-				<InfoRow label='Donation ID' value={donationId} />
-				<InfoRow label='Supporter' value={supporter} />
-				<InfoRow label='Campaign' value={campaign} />
-				<InfoRow label='Designation' value={designation} />
-				<InfoRow label='Donation Date' value={donationDate} />
-				<InfoRow label='Success Date' value={successDate} />
-				<InfoRow label='Frequency' value={frequency} />
+				<InfoRow label='Donation ID' value={donationId} isMobile={isMobile} />
+				<InfoRow label='Supporter' value={supporter} isMobile={isMobile} />
+				<InfoRow label='Campaign' value={campaign} isMobile={isMobile} />
+				<InfoRow label='Designation' value={designation} isMobile={isMobile} />
+				<InfoRow
+					label='Donation Date'
+					value={donationDate}
+					isMobile={isMobile}
+				/>
+				<InfoRow label='Success Date' value={successDate} isMobile={isMobile} />
+				<InfoRow label='Frequency' value={frequency} isMobile={isMobile} />
 			</Grid>
 
 			<EditForm

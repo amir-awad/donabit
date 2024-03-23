@@ -5,12 +5,13 @@ import { HelpOutlineOutlined as HelpIcon } from '@mui/icons-material';
 interface InfoRowProps {
 	label: string;
 	value: string;
+	isMobile: boolean;
 }
 
-const InfoRow = ({ label, value }: InfoRowProps) => (
+const InfoRow = ({ label, value, isMobile }: InfoRowProps) => (
 	<Grid item xs={12}>
 		<Grid container spacing={1}>
-			<Grid item xs={3}>
+			<Grid item xs={isMobile ? 6 : 3}>
 				<Typography variant='body2' noWrap>
 					{label}
 				</Typography>
