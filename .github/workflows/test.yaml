@@ -10,8 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set Environment Variables
+        env:
+          PORT: ${{ secrets.PORT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
+          SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+
       - name: Print environment variables
+        run: echo "$PORT"
         run: echo "$SUPABASE_URL"
+        run: echo "$SUPABASE_KEY"
+        run: echo "$SUPABASE_EMAIL"
+        run: echo "$SUPABASE_PASSWORD"
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -25,9 +37,3 @@ jobs:
       - name: Run Jest tests
         run: npm test
         working-directory: server
-env:
-  PORT: ${{ secrets.PORT }}
-  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-  SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-  SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
-  SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
