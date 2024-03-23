@@ -163,7 +163,11 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 						}
 						isMobile={isMobile}
 					/>
-					<PaymentRow title='Effective Fee' value={effectiveFee} />
+					<PaymentRow
+						title='Effective Fee'
+						value={effectiveFee}
+						isMobile={isMobile}
+					/>
 				</Grid>
 			</Grid>
 		</Grid>
