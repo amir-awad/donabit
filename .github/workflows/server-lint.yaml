@@ -1,6 +1,4 @@
-# .github/workflows/lint.yml
-
-name: Lint
+name: Server Lint
 
 on:
   push:
