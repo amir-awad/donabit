@@ -16,8 +16,8 @@ import InfoRow from './InfoRow';
 
 interface DonationInfo {
 	donationId: string;
-	supporter: string;
-	campaign: string;
+	supporterName: string;
+	campaignName: string;
 	designation: string;
 	donationDate: string;
 	successDate: string;
@@ -27,19 +27,14 @@ interface DonationInfo {
 const DonationInformation = () => {
 	const [donationInfo, setDonationInfo] = useState<DonationInfo>({
 		donationId: '',
-		supporter: '',
-		campaign: '',
+		supporterName: '',
+		campaignName: '',
 		designation: '',
 		donationDate: '',
 		successDate: '',
 		frequency: '',
 	});
 	const [openEditForm, setOpenEditForm] = useState(false);
-
-	const [supporterName, setSupporterName] = useState('');
-	const [campaignName, setCampaignName] = useState('');
-	const [desig, setDesig] = useState('');
-	const [freq, setFreq] = useState('');
 
 	const handleEditClick = () => {
 		setOpenEditForm(true);
@@ -49,9 +44,37 @@ const DonationInformation = () => {
 		setOpenEditForm(false);
 	};
 
-	const handleEditFormSubmit = (updatedInfo: any) => {
-		// Handle form submission logic here (e.g., update data on server)
+	const handleEditFormSubmit = async (updatedInfo: any) => {
 		console.log('Updated donation information:', updatedInfo);
+
+		const updatedDonationInfo = {
+			supporter_name: updatedInfo.supporterName,
+			campaign: updatedInfo.campaignName,
+			designation: updatedInfo.designation,
+			frequency: updatedInfo.frequency,
+		};
+
+		const { data, error } = await supabaseService
+			.getSupabase()
+			.from('donation')
+			.update(updatedDonationInfo)
+			.eq('donation_id', donationInfo.donationId);
+
+		if (error) {
+			console.error('Error updating donation info:', error.message);
+			return;
+		}
+
+		console.log('Updated donation info:', data);
+
+		setDonationInfo({
+			...donationInfo,
+			supporterName: updatedInfo.supporterName,
+			campaignName: updatedInfo.campaignName,
+			designation: updatedInfo.designation,
+			frequency: updatedInfo.frequency,
+		});
+
 		setOpenEditForm(false);
 	};
 
@@ -72,9 +95,9 @@ const DonationInformation = () => {
 			if (data && data.length > 0) {
 				const donation = data[data.length - 1];
 				setDonationInfo({
-					donationId: hashDonationId(donation.donation_id),
-					supporter: donation.supporter_name,
-					campaign: donation.campaign,
+					donationId: donation.donation_id,
+					supporterName: donation.supporter_name,
+					campaignName: donation.campaign,
 					designation: donation.designation,
 					donationDate: donation.donation_date,
 					successDate: donation.success_date ? donation.success_date : '____',
@@ -114,17 +137,17 @@ const DonationInformation = () => {
 			<Grid container spacing={2}>
 				<InfoRow
 					label='Donation ID'
-					value={donationInfo.donationId}
+					value={hashDonationId(donationInfo.donationId)}
 					isMobile={isMobile}
 				/>
 				<InfoRow
 					label='Supporter'
-					value={donationInfo.supporter}
+					value={donationInfo.supporterName}
 					isMobile={isMobile}
 				/>
 				<InfoRow
 					label='Campaign'
-					value={donationInfo.campaign}
+					value={donationInfo.campaignName}
 					isMobile={isMobile}
 				/>
 				<InfoRow
@@ -150,14 +173,10 @@ const DonationInformation = () => {
 			</Grid>
 
 			<EditForm
-				supporterName={supporterName}
-				campaignName={campaignName}
-				designation={desig}
-				frequency={freq}
-				setSupporterName={setSupporterName}
-				setCampaignName={setCampaignName}
-				setDesignation={setDesig}
-				setFrequency={setFreq}
+				supporterName={donationInfo.supporterName}
+				campaignName={donationInfo.campaignName}
+				designation={donationInfo.designation}
+				frequency={donationInfo.frequency}
 				onSubmit={handleEditFormSubmit}
 				onClose={handleEditFormClose}
 				open={openEditForm}

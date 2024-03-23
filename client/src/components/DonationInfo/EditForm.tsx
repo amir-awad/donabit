@@ -26,10 +26,6 @@ interface EditFormProperties {
 	campaignName: string;
 	designation: string;
 	frequency: string;
-	setSupporterName: (name: string) => void;
-	setCampaignName: (name: string) => void;
-	setDesignation: (desig: string) => void;
-	setFrequency: (freq: string) => void;
 	onSubmit: (updatedInfo: EditFormValues) => void;
 	onClose: () => void;
 	open?: boolean;
@@ -44,11 +40,11 @@ interface EditFormValues {
 
 const CampaignNameOptions = [
 	'My awesome campaign #6',
-	'Campaign for the future',
-	'Campaign for the past',
-	'Campaign for the present',
+	'My awesome campaign #5',
+	'My awesome campaign #4',
+	'My awesome campaign #3',
 ];
-const DesignationOptions = ['General', 'Specific', '___'];
+const DesignationOptions = ['General', 'Specific', 'Other'];
 const donationFrequencyOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly'];
 
 const donationInfoSchema = z.object({
@@ -66,10 +62,6 @@ const EditForm: React.FC<EditFormProperties> = ({
 	campaignName,
 	designation,
 	frequency,
-	setSupporterName,
-	setCampaignName,
-	setDesignation,
-	setFrequency,
 	onSubmit,
 	onClose,
 	open,
@@ -129,7 +121,6 @@ const EditForm: React.FC<EditFormProperties> = ({
 										helperText={errors.supporterName?.message}
 										onChange={(e) => {
 											field.onChange(e);
-											setSupporterName(e.target.value);
 										}}
 									/>
 								)}
@@ -148,7 +139,6 @@ const EditForm: React.FC<EditFormProperties> = ({
 											required
 											onChange={(e) => {
 												field.onChange(e);
-												setCampaignName(e.target.value as string);
 											}}
 										>
 											{CampaignNameOptions.map((option) => (
@@ -174,7 +164,6 @@ const EditForm: React.FC<EditFormProperties> = ({
 											required
 											onChange={(e) => {
 												field.onChange(e);
-												setDesignation(e.target.value as string);
 											}}
 										>
 											{DesignationOptions.map((option) => (
@@ -200,7 +189,6 @@ const EditForm: React.FC<EditFormProperties> = ({
 											required
 											onChange={(e) => {
 												field.onChange(e);
-												setFrequency(e.target.value as string);
 											}}
 										>
 											{donationFrequencyOptions.map((option) => (
