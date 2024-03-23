@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import supabaseService from '@/services/supabaseService';
+import hashDonationId from '@/utils/hashId';
 import EditForm from './EditForm';
 import {
 	Grid,
@@ -22,21 +24,22 @@ interface DonationInfo {
 	frequency: string;
 }
 
-const DonationInformation: React.FC<DonationInfo> = ({
-	donationId,
-	supporter,
-	campaign,
-	designation,
-	donationDate,
-	successDate,
-	frequency,
-}) => {
+const DonationInformation = () => {
+	const [donationInfo, setDonationInfo] = useState<DonationInfo>({
+		donationId: '',
+		supporter: '',
+		campaign: '',
+		designation: '',
+		donationDate: '',
+		successDate: '',
+		frequency: '',
+	});
 	const [openEditForm, setOpenEditForm] = useState(false);
 
-	const [supporterName, setSupporterName] = useState(supporter);
-	const [campaignName, setCampaignName] = useState(campaign);
-	const [desig, setDesig] = useState(designation);
-	const [freq, setFreq] = useState(frequency);
+	const [supporterName, setSupporterName] = useState('');
+	const [campaignName, setCampaignName] = useState('');
+	const [desig, setDesig] = useState('');
+	const [freq, setFreq] = useState('');
 
 	const handleEditClick = () => {
 		setOpenEditForm(true);
@@ -44,10 +47,6 @@ const DonationInformation: React.FC<DonationInfo> = ({
 
 	const handleEditFormClose = () => {
 		setOpenEditForm(false);
-		setSupporterName(supporter);
-		setCampaignName(campaign);
-		setDesig(designation);
-		setFreq(frequency);
 	};
 
 	const handleEditFormSubmit = (updatedInfo: any) => {
@@ -57,6 +56,35 @@ const DonationInformation: React.FC<DonationInfo> = ({
 	};
 
 	const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
+
+	useEffect(() => {
+		async function fetchDonationInfo() {
+			const { data, error } = await supabaseService
+				.getSupabase()
+				.from('donation')
+				.select('*');
+
+			if (error) {
+				console.error('Error fetching donation info:', error.message);
+				return;
+			}
+
+			if (data && data.length > 0) {
+				const donation = data[data.length - 1];
+				setDonationInfo({
+					donationId: hashDonationId(donation.donation_id),
+					supporter: donation.supporter_name,
+					campaign: donation.campaign,
+					designation: donation.designation,
+					donationDate: donation.donation_date,
+					successDate: donation.success_date ? donation.success_date : '____',
+					frequency: donation.frequency,
+				});
+			}
+		}
+
+		fetchDonationInfo();
+	}, []);
 
 	return (
 		<Grid>
@@ -84,17 +112,41 @@ const DonationInformation: React.FC<DonationInfo> = ({
 				<Divider />
 			</Grid>
 			<Grid container spacing={2}>
-				<InfoRow label='Donation ID' value={donationId} isMobile={isMobile} />
-				<InfoRow label='Supporter' value={supporter} isMobile={isMobile} />
-				<InfoRow label='Campaign' value={campaign} isMobile={isMobile} />
-				<InfoRow label='Designation' value={designation} isMobile={isMobile} />
 				<InfoRow
-					label='Donation Date'
-					value={donationDate}
+					label='Donation ID'
+					value={donationInfo.donationId}
 					isMobile={isMobile}
 				/>
-				<InfoRow label='Success Date' value={successDate} isMobile={isMobile} />
-				<InfoRow label='Frequency' value={frequency} isMobile={isMobile} />
+				<InfoRow
+					label='Supporter'
+					value={donationInfo.supporter}
+					isMobile={isMobile}
+				/>
+				<InfoRow
+					label='Campaign'
+					value={donationInfo.campaign}
+					isMobile={isMobile}
+				/>
+				<InfoRow
+					label='Designation'
+					value={donationInfo.designation}
+					isMobile={isMobile}
+				/>
+				<InfoRow
+					label='Donation Date'
+					value={donationInfo.donationDate}
+					isMobile={isMobile}
+				/>
+				<InfoRow
+					label='Success Date'
+					value={donationInfo.successDate}
+					isMobile={isMobile}
+				/>
+				<InfoRow
+					label='Frequency'
+					value={donationInfo.frequency}
+					isMobile={isMobile}
+				/>
 			</Grid>
 
 			<EditForm

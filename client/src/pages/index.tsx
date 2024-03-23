@@ -9,16 +9,6 @@ import PaymentAndFees from '../components/PaymentAndFees/PaymentAndFees';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 
-const donationInfo = {
-	id: 'DMLKSD',
-	supporter: 'Mohamed Elsayed',
-	campaign: 'My awesome campaign #6',
-	designation: '___',
-	donationDate: 'Feb 14, 2023, 9:54 PM',
-	successDate: 'Feb 14, 2023, 9:54 PM',
-	frequency: 'One time',
-};
-
 const paymentAndFeesInfo = {
 	donationAmount: '$2,50 USD',
 	beforeFeesCovered: '$2,50 USD',
@@ -64,15 +54,7 @@ export default function Home() {
 						mt: 4,
 					}}
 				>
-					<DonationInformation
-						donationId={donationInfo.id}
-						supporter={donationInfo.supporter}
-						campaign={donationInfo.campaign}
-						designation={donationInfo.designation}
-						donationDate={donationInfo.donationDate}
-						successDate={donationInfo.successDate}
-						frequency={donationInfo.frequency}
-					/>
+					<DonationInformation />
 				</Grid>
 
 				<Grid
