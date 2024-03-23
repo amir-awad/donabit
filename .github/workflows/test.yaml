@@ -17,8 +17,6 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
           SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
-
-      - name: Print environment variables
         run: echo "$SUPABASE_URL"
 
       - name: Use Node.js 18
