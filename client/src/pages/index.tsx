@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Box, Divider, Grid } from '@mui/material';
 
 import DonationContent from '../components/DonationContent';
@@ -94,6 +94,7 @@ export default function Home() {
 					/>
 				</Grid>
 			</Box>
+			<SpeedInsights />
 		</Box>
 	);
 }
