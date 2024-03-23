@@ -6,12 +6,9 @@ import {
 	Done as DoneIcon,
 	OpenInNewOutlined as OpenInNewIcon,
 } from '@mui/icons-material';
-
 import Image from 'next/image';
 import mastercardIcon from '../../../public/mastercard.svg';
-
-import PaymentLeftRow from './PaymentLeftRow';
-import PaymentRightRow from './PaymentRightRow';
+import PaymentRow from './PaymentRow';
 
 interface PaymentAndFeesInfo {
 	donationAmount: string;
@@ -64,35 +61,32 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 			<Grid item xs={12}>
 				<Divider />
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={12} md={6}>
 				<Grid container spacing={2}>
-					<PaymentLeftRow title='Donation Amount' value={donationAmount} />
-					<PaymentLeftRow
-						title='Before Fees Covered'
-						value={beforeFeesCovered}
-					/>
-					<PaymentLeftRow title='Payment Fee' value={paymentFee} />
-					<PaymentLeftRow
+					<PaymentRow title='Donation Amount' value={donationAmount} />
+					<PaymentRow title='Before Fees Covered' value={beforeFeesCovered} />
+					<PaymentRow title='Payment Fee' value={paymentFee} />
+					<PaymentRow
 						title='Payment Processing Fee'
 						value={paymentProcessingFee}
 					/>
-					<PaymentLeftRow
+					<PaymentRow
 						title='Payout Amount'
 						value={payoutAmount}
 						icon={<HelpIcon fontSize='small' sx={{ color: 'grey' }} />}
 					/>
 				</Grid>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item xs={12} md={6}>
 				<Grid container spacing={2}>
-					<PaymentRightRow title='Payment Processor' value={paymentProcessor} />
-					<PaymentRightRow
+					<PaymentRow title='Payment Processor' value={paymentProcessor} />
+					<PaymentRow
 						title='Payment ID'
 						value={paymentId}
 						icon={<OpenInNewIcon />}
 					/>
-					<PaymentRightRow title='Payment Method' value={paymentMethod} />
-					<PaymentRightRow
+					<PaymentRow title='Payment Method' value={paymentMethod} />
+					<PaymentRow
 						title='Credit Card'
 						value={creditCard}
 						icon={
@@ -116,7 +110,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 							</Box>
 						}
 					/>
-					<PaymentRightRow
+					<PaymentRow
 						title='Fee Covered'
 						value={feeCovered}
 						icon={
@@ -135,7 +129,7 @@ const PaymentAndFees: React.FC<PaymentAndFeesInfo> = ({
 							</Box>
 						}
 					/>
-					<PaymentRightRow title='Effective Fee' value={effectiveFee} />
+					<PaymentRow title='Effective Fee' value={effectiveFee} />
 				</Grid>
 			</Grid>
 		</Grid>

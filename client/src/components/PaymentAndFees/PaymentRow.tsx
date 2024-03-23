@@ -11,7 +11,7 @@ const PaymentLeftRow = ({ title, value, icon }: PaymentLeftRowProps) => {
 	return (
 		<Grid item xs={12}>
 			<Grid container spacing={1}>
-				<Grid item xs={8}>
+				<Grid item xs={6}>
 					<Typography variant='body2' noWrap>
 						{title}
 					</Typography>
@@ -22,14 +22,27 @@ const PaymentLeftRow = ({ title, value, icon }: PaymentLeftRowProps) => {
 							{value}
 						</Typography>
 					) : (
-						<Grid container spacing={1}>
-							<Grid item>
-								<Typography variant='body2' noWrap>
-									{value}
-								</Typography>
-							</Grid>
-							<Grid item>{icon}</Grid>
-						</Grid>
+						<>
+							{title === 'Payout Amount' ? (
+								<Grid container spacing={1}>
+									<Grid item>
+										<Typography variant='body2' noWrap>
+											{value}
+										</Typography>
+									</Grid>
+									<Grid item>{icon}</Grid>
+								</Grid>
+							) : (
+								<Grid container spacing={1}>
+									<Grid item>{icon}</Grid>
+									<Grid item>
+										<Typography variant='body2' noWrap>
+											{value}
+										</Typography>
+									</Grid>
+								</Grid>
+							)}
+						</>
 					)}
 				</Grid>
 			</Grid>

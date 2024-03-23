@@ -10,13 +10,13 @@ interface InfoRowProps {
 const InfoRow = ({ label, value }: InfoRowProps) => (
 	<Grid item xs={12}>
 		<Grid container spacing={1}>
-			<Grid item xs={4}>
+			<Grid item xs={3}>
 				<Typography variant='body2' noWrap>
 					{label}
 				</Typography>
 			</Grid>
 			{label === 'Donation Date' || label === 'Success Date' ? (
-				<Grid item xs={8}>
+				<Grid item>
 					<Grid container spacing={1}>
 						<Grid item>
 							<Typography variant='body2' noWrap>
@@ -29,7 +29,7 @@ const InfoRow = ({ label, value }: InfoRowProps) => (
 					</Grid>
 				</Grid>
 			) : (
-				<Grid item xs={8}>
+				<Grid item>
 					<Typography variant='body2' noWrap>
 						{value}
 					</Typography>
