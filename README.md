@@ -1,6 +1,6 @@
 ## Transaction Page
 
-A single-page transaction application.
+A single-page transaction application to manage donations.
 
 ## Badges
 
