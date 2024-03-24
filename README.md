@@ -60,6 +60,13 @@ A single-page transaction application.
 3. **Start both client and server:**
 
 ```bash
-> chmod +x run-tests.sh
-> ./run-tests.sh
+> chmod +x run-all.sh
+> ./run-all.sh
+```
+
+3. **And to run the tests:**
+
+```bash
+> chmod +x test-all.sh
+> ./test-all.sh
 ```
