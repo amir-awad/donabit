@@ -1,6 +1,6 @@
-## Transaction Page
+## Donabit
 
-A single-page transaction application to manage donations.
+Donabit is a single-page transaction application to manage donations.
 
 ## Badges
 
@@ -47,7 +47,7 @@ A single-page transaction application to manage donations.
 1. **Clone the repository:**
 
 ```bash
-> git clone https://github.com/amir-awad/full-stack-task.git
+> git clone https://github.com/amir-awad/donabit.git
 > cd full-stack-task
 ```
 
