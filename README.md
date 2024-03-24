@@ -1,7 +1,5 @@
 ## Transaction Page
 
-**Description:**
-
 A single-page transaction application.
 
 ## Badges
