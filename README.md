@@ -20,11 +20,11 @@ Donabit is a single-page transaction application to manage donations.
 
 ## Build Status
 
-[![Server ESlint CI](https://github.com/amir-awad/full-stack-task/actions/workflows/server-lint.yaml/badge.svg)](https://github.com/amir-awad/full-stack-task/actions/workflows/server-lint.yaml)
+[![Server ESlint CI](https://github.com/amir-awad/donabit/actions/workflows/server-lint.yaml/badge.svg)](https://github.com/amir-awad/donabit/actions/workflows/server-lint.yaml)
 
-[![CLIENT ESlint CI](https://github.com/amir-awad/full-stack-task/actions/workflows/client-lint.yaml/badge.svg)](https://github.com/amir-awad/full-stack-task/actions/workflows/client-lint.yaml)
+[![CLIENT ESlint CI](https://github.com/amir-awad/donabit/actions/workflows/client-lint.yaml/badge.svg)](https://github.com/amir-awad/donabit/actions/workflows/client-lint.yaml)
 
-[![Server TEST CI](https://github.com/amir-awad/full-stack-task/actions/workflows/server-test.yaml/badge.svg)](https://github.com/amir-awad/full-stack-task/actions/workflows/server-test.yaml)
+[![Server TEST CI](https://github.com/amir-awad/donabit/actions/workflows/server-test.yaml/badge.svg)](https://github.com/amir-awad/donabit/actions/workflows/server-test.yaml)
 
 ## Tech/Framework used
 
@@ -48,7 +48,7 @@ Donabit is a single-page transaction application to manage donations.
 
 ```bash
 > git clone https://github.com/amir-awad/donabit.git
-> cd full-stack-task
+> cd donabit
 ```
 
 2. **Install dependencies for both client and server:**
