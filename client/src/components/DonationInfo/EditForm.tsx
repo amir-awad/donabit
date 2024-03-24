@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -66,8 +66,12 @@ const EditForm: React.FC<EditFormProperties> = ({
 	onClose,
 	open,
 }) => {
+	const [supporterNameValue, setSupporterNameValue] = useState(supporterName);
+	const [campaignNameValue, setCampaignNameValue] = useState(campaignName);
+	const [designationValue, setDesignationValue] = useState(designation);
+	const [frequencyValue, setFrequencyValue] = useState(frequency);
+
 	const {
-		handleSubmit,
 		control,
 		formState: { errors },
 	} = useForm({
@@ -80,9 +84,33 @@ const EditForm: React.FC<EditFormProperties> = ({
 		},
 	});
 
+	const initializeForm = () => {
+		setSupporterNameValue(supporterName);
+		setCampaignNameValue(campaignName);
+		setDesignationValue(designation);
+		setFrequencyValue(frequency);
+	};
+
+	useEffect(() => {
+		setSupporterNameValue(supporterName);
+		setCampaignNameValue(campaignName);
+		setDesignationValue(designation);
+		setFrequencyValue(frequency);
+	}, [supporterName, campaignName, designation, frequency]);
+
 	return (
 		<Dialog open={open || false} onClose={onClose}>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					onSubmit({
+						supporterName: supporterNameValue,
+						campaignName: campaignNameValue,
+						designation: designationValue,
+						frequency: frequencyValue,
+					});
+				}}
+			>
 				<DialogTitle>
 					<Grid container spacing={1}>
 						<Grid item>
@@ -95,7 +123,12 @@ const EditForm: React.FC<EditFormProperties> = ({
 						</Grid>
 						<Grid item sx={{ ml: 'auto' }}>
 							<Button
-								onClick={onClose}
+								onClick={() => {
+									onClose();
+									setTimeout(() => {
+										initializeForm();
+									}, 1000);
+								}}
 								startIcon={
 									<ClearIcon sx={{ color: 'grey', width: 20, height: 20 }} />
 								}
@@ -114,13 +147,14 @@ const EditForm: React.FC<EditFormProperties> = ({
 							>
 								{(field) => (
 									<TextField
-										value={field.value}
+										value={supporterNameValue}
 										fullWidth
 										required
 										error={!!errors.supporterName}
 										helperText={errors.supporterName?.message}
 										onChange={(e) => {
 											field.onChange(e);
+											setSupporterNameValue(e.target.value);
 										}}
 									/>
 								)}
@@ -135,10 +169,11 @@ const EditForm: React.FC<EditFormProperties> = ({
 								{(field) => (
 									<FormControl fullWidth>
 										<Select
-											{...field}
+											value={campaignNameValue}
 											required
 											onChange={(e) => {
 												field.onChange(e);
+												setCampaignNameValue(e.target.value);
 											}}
 										>
 											{CampaignNameOptions.map((option) => (
@@ -160,10 +195,11 @@ const EditForm: React.FC<EditFormProperties> = ({
 								{(field) => (
 									<FormControl fullWidth>
 										<Select
-											{...field}
+											value={designationValue}
 											required
 											onChange={(e) => {
 												field.onChange(e);
+												setDesignationValue(e.target.value);
 											}}
 										>
 											{DesignationOptions.map((option) => (
@@ -185,10 +221,11 @@ const EditForm: React.FC<EditFormProperties> = ({
 								{(field) => (
 									<FormControl fullWidth>
 										<Select
-											{...field}
+											value={frequencyValue}
 											required
 											onChange={(e) => {
 												field.onChange(e);
+												setFrequencyValue(e.target.value);
 											}}
 										>
 											{donationFrequencyOptions.map((option) => (

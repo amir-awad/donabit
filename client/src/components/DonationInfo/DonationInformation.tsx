@@ -24,6 +24,13 @@ interface DonationInfo {
 	frequency: string;
 }
 
+interface EditFormValues {
+	supporterName: string;
+	campaignName: string;
+	designation: string;
+	frequency: string;
+}
+
 const DonationInformation = () => {
 	const [donationInfo, setDonationInfo] = useState<DonationInfo>({
 		donationId: '',
@@ -34,17 +41,21 @@ const DonationInformation = () => {
 		successDate: '',
 		frequency: '',
 	});
+	const [supporterName, setSupporterName] = useState('');
+	const [campaignName, setCampaignName] = useState('');
+	const [designation, setDesignation] = useState('');
+	const [frequency, setFrequency] = useState('');
 	const [openEditForm, setOpenEditForm] = useState(false);
 
 	const handleEditClick = () => {
-		setOpenEditForm(true);
+		donationInfo.donationId && setOpenEditForm(true);
 	};
 
 	const handleEditFormClose = () => {
 		setOpenEditForm(false);
 	};
 
-	const handleEditFormSubmit = async (updatedInfo: any) => {
+	const handleEditFormSubmit = async (updatedInfo: EditFormValues) => {
 		console.log('Updated donation information:', updatedInfo);
 
 		const updatedDonationInfo = {
@@ -80,34 +91,39 @@ const DonationInformation = () => {
 
 	const isMobile = useMediaQuery(useTheme().breakpoints.down('sm'));
 
-	useEffect(() => {
-		async function fetchDonationInfo() {
-			const { data, error } = await supabaseService
-				.getSupabase()
-				.from('donation')
-				.select('*');
+	async function fetchDonationInfo() {
+		const { data, error } = await supabaseService
+			.getSupabase()
+			.from('donation')
+			.select('*');
 
-			if (error) {
-				console.error('Error fetching donation info:', error.message);
-				return;
-			}
-
-			if (data && data.length > 0) {
-				const donation = data[data.length - 1];
-				setDonationInfo({
-					donationId: donation.donation_id,
-					supporterName: donation.supporter_name,
-					campaignName: donation.campaign,
-					designation: donation.designation,
-					donationDate: donation.donation_date,
-					successDate: donation.success_date ? donation.success_date : '____',
-					frequency: donation.frequency,
-				});
-			}
+		if (error) {
+			console.error('Error fetching donation info:', error.message);
+			return;
 		}
 
+		if (data && data.length > 0) {
+			const donation = data[data.length - 1];
+			setDonationInfo({
+				donationId: donation.donation_id,
+				supporterName: donation.supporter_name,
+				campaignName: donation.campaign,
+				designation: donation.designation,
+				donationDate: donation.donation_date,
+				successDate: donation.success_date ? donation.success_date : '____',
+				frequency: donation.frequency,
+			});
+
+			setSupporterName(donation.supporter_name);
+			setCampaignName(donation.campaign);
+			setDesignation(donation.designation);
+			setFrequency(donation.frequency);
+		}
+	}
+
+	useEffect(() => {
 		fetchDonationInfo();
-	}, []);
+	}, [supporterName, campaignName, designation, frequency]);
 
 	return (
 		<Grid>
@@ -173,9 +189,9 @@ const DonationInformation = () => {
 			</Grid>
 
 			<EditForm
-				supporterName={donationInfo.supporterName}
-				campaignName={donationInfo.campaignName}
-				designation={donationInfo.designation}
+				supporterName={supporterName}
+				campaignName={campaignName}
+				designation={designation}
 				frequency={donationInfo.frequency}
 				onSubmit={handleEditFormSubmit}
 				onClose={handleEditFormClose}
